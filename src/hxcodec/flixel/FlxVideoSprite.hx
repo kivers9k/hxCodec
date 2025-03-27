@@ -46,15 +46,17 @@ class FlxVideoSprite extends FlxSprite
 				FlxG.signals.focusLost.add(pause);
 		}
 
-		if (bitmap != null)
-		{
-			if (FileSystem.exists(Sys.getCwd() + location))
+		if (bitmap != null) {
+			if (FileSystem.exists(Sys.getCwd() + location)) {
 				return bitmap.play(Sys.getCwd() + location, shouldLoop);
-			else
+			} else {
 				return bitmap.play(location, shouldLoop);
-		}
-		else
+			}
+			this.frameWidth = bitmap.videoWidth;
+			this.frameHeight = bitmap.videoHeight;
+		} else {
 			return -1;
+		}
 	}
 
 	public function stop():Void
