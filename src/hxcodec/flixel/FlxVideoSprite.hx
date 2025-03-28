@@ -37,26 +37,23 @@ class FlxVideoSprite extends FlxSprite
 	// Methods
 	public function play(location:String, shouldLoop:Bool = false):Int
 	{
-		if (FlxG.autoPause)
-		{
-			if (!FlxG.signals.focusGained.has(resume))
-				FlxG.signals.focusGained.add(resume);
+	    if (FlxG.autoPause) {
+		if (!FlxG.signals.focusGained.has(resume))
+		    FlxG.signals.focusGained.add(resume);
 
-			if (!FlxG.signals.focusLost.has(pause))
-				FlxG.signals.focusLost.add(pause);
-		}
+		if (!FlxG.signals.focusLost.has(pause))
+		    FlxG.signals.focusLost.add(pause);
+	    }
 
-		if (bitmap != null) {
-			if (FileSystem.exists(Sys.getCwd() + location)) {
-				return bitmap.play(Sys.getCwd() + location, shouldLoop);
-			} else {
-				return bitmap.play(location, shouldLoop);
-			}
-			this.frameWidth = bitmap.videoWidth;
-			this.frameHeight = bitmap.videoHeight;
-		} else {
-			return -1;
+	    if (bitmap != null) {
+	        if (FileSystem.exists(Sys.getCwd() + location)) {
+		    return bitmap.play(Sys.getCwd() + location, shouldLoop);
+	        } else {
+		    return bitmap.play(location, shouldLoop);
 		}
+	    } else {
+		return -1;
+	    }
 	}
 
 	public function stop():Void
