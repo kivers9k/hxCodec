@@ -20,15 +20,18 @@ class FlxVideoSprite extends FlxSprite
 	{
 		super(x, y);
 
-		makeGraphic(1, 1, FlxColor.TRANSPARENT);
-
+		visible = false;
+		
 		bitmap = new Video();
 		bitmap.alpha = 0;
-		bitmap.onOpening.add(function()
-		{
+		bitmap.onOpening.add(function() {
+			visible = true;
 			#if FLX_SOUND_SYSTEM
 			bitmap.volume = Std.int((FlxG.sound.muted ? 0 : 1) * (FlxG.sound.volume * 100));
 			#end
+		});
+		bitmap.onEndReached.add(function() {
+			visible = false;
 		});
 		bitmap.onTextureSetup.add(() -> loadGraphic(bitmap.bitmapData));
 		FlxG.game.addChild(bitmap);
